@@ -1,0 +1,215 @@
+workspace(name = "mediapipe")
+
+# load("//external/bazel_skylib:workspace.bzl", "bazel_skylib_workspace")
+# bazel_skylib_workspace()
+# load("//external/bazel_skylib//lib:versions.bzl", "versions")
+# versions.check(minimum_bazel_version = "3.7.2")
+
+# ABSL cpp library lts_2020_09_23
+new_local_repository(
+    name = "com_google_absl",
+    path = "external/com_google_absl",
+    build_file = "external/com_google_absl/BUILD.bazel",
+)
+
+new_local_repository(
+    name = "rules_cc",
+    path = "external/rules_cc",
+    build_file = "external/rules_cc/BUILD",
+)
+
+local_repository(
+    name = "rules_foreign_cc",
+    path = "external/rules_foreign_cc",
+)
+
+load("@rules_foreign_cc//:workspace_definitions.bzl", "rules_foreign_cc_dependencies")
+
+rules_foreign_cc_dependencies()
+
+# This is used to select all contents of the archives for CMake-based packages to give CMake access to them.
+all_content = """filegroup(name = "all", srcs = glob(["**"]), visibility = ["//visibility:public"])"""
+
+# GoogleTest/GoogleMock framework. Used by most unit-tests.
+# Last updated 2020-06-30.
+new_local_repository(
+    name = "com_google_googletest",
+    path = "external/com_google_googletest",
+)
+
+# Google Benchmark library.
+new_local_repository(
+    name = "com_google_benchmark",
+    path = "external/com_google_benchmark",
+    build_file = "@//third_party:benchmark.BUILD",
+)
+
+# gflags needed by glog
+new_local_repository(
+    name = "com_github_gflags_gflags",
+    path = "external/com_github_gflags_gflags",
+    build_file = "external/com_github_gflags_gflags/BUILD",
+)
+
+# 2020-08-21
+new_local_repository(
+    name = "com_github_glog_glog",
+    path = "external/com_github_glog_glog",
+    build_file = "external/com_github_glog_glog/BUILD",
+)
+
+new_local_repository(
+    name = "com_github_glog_glog_no_gflags",
+    path = "external/com_github_glog_glog_no_gflags",
+    build_file = "@//third_party:glog_no_gflags.BUILD",
+)
+
+new_local_repository(
+    name = "easyexif",
+    path = "external/easyexif",
+    build_file = "@//third_party:easyexif.BUILD",
+)
+
+
+# libyuv
+new_local_repository(
+    name = "libyuv",
+    path = "external/libyuv",
+    build_file = "@//third_party:libyuv.BUILD",
+)
+
+new_local_repository(
+    name = "rules_python",
+    path = "external/rules_python",
+    build_file = "external/rules_python/BUILD",
+)
+
+# Apple and Swift rules.
+    # https://github.com/bazelbuild/rules_apple/releases
+
+new_local_repository(
+    name = "build_bazel_rules_apple",
+    path = "external/build_bazel_rules_apple",
+    build_file = "external/build_bazel_rules_apple/BUILD",
+)
+
+# https://github.com/bazelbuild/apple_support/releases
+
+new_local_repository(
+    name = "build_bazel_apple_support",
+    path = "external/build_bazel_apple_support",
+    build_file = "external/build_bazel_apple_support/BUILD",
+)
+
+# https://github.com/bazelbuild/rules_swift/releases
+new_local_repository(
+    name = "build_bazel_rules_swift",
+    path = "external/build_bazel_rules_swift",
+    build_file = "external/build_bazel_rules_swift/BUILD",
+)
+
+# Attention: tools parse and update these lines.
+EIGEN_COMMIT = "3d9051ea84a5089b277c88dac456b3b1576bfa7f"
+EIGEN_SHA256 = "1e473b94966cd3084c6df5b4fe0612ea681ac0ae6624bd151950262c29ebb917"
+
+new_local_repository(
+    name = "eigen_archive",
+    path = "external/eigen_archive",
+    build_file = "//third_party/eigen3:eigen_archive.BUILD",
+)
+
+new_local_repository(
+    name = "zlib",
+    path = "external/zlib",
+    build_file = "//third_party:zlib.BUILD",
+)
+
+new_local_repository(
+    name = "com_google_protobuf",
+    path = "external/com_google_protobuf",
+    build_file = "external/com_google_protobuf/BUILD",
+)
+
+new_local_repository(
+    name = "com_google_audio_tools",
+    path = "external/com_google_audio_tools",
+)
+
+# 2020-07-09
+new_local_repository(
+    name = "pybind11_bazel",
+    path = "external/pybind11_bazel",
+)
+
+new_local_repository(
+    name = "ceres_solver",
+    path = "external/ceres_solver",
+)
+
+new_local_repository(
+    name = "linux_opencv",
+    build_file = "@//third_party:opencv_a311d.BUILD",
+    #path = "/usr/local",
+    path = "/usr",
+)
+
+new_local_repository(
+    name = "interface_headers",
+    build_file = "@//third_party:interface_headers.BUILD",
+    path = "include",
+)
+
+new_local_repository(
+    name = "tengine",
+    build_file = "@//third_party:tengine.BUILD",
+    path = "tengine",
+)
+
+new_local_repository(
+    name = "jetson_cuda",
+    build_file = "@//third_party:jetson_cuda.BUILD",
+    path = "/usr/local/cuda",
+)
+
+new_local_repository(
+    name = "jetson_tensorrt",
+    build_file = "@//third_party:jetson_tensorrt.BUILD",
+    path = "/usr",
+)
+
+new_local_repository(
+    name = "linux_ffmpeg",
+    build_file = "@//third_party:ffmpeg_linux.BUILD",
+    path = "/usr"
+)
+
+new_local_repository(
+    name = "a311d_opencv",
+    build_file = "@//third_party:opencv_a311d.BUILD",
+    #path = "/usr/local",
+    path = "/usr",
+)
+
+new_local_repository(
+    name = "macos_opencv",
+    build_file = "@//third_party:opencv_macos.BUILD",
+    path = "/usr/local/opt/opencv@3",
+)
+
+new_local_repository(
+    name = "macos_ffmpeg",
+    build_file = "@//third_party:ffmpeg_macos.BUILD",
+    path = "/usr/local/opt/ffmpeg",
+)
+
+new_local_repository(
+    name = "windows_opencv",
+    build_file = "@//third_party:opencv_windows.BUILD",
+    path = "C:\\opencv\\build",
+)
+
+new_local_repository(
+    name = "stblib",
+    path = "external/stblib",
+    build_file = "@//third_party:stblib.BUILD",
+)

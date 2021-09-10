@@ -1,0 +1,67 @@
+// Copyright 2019 The MediaPipe Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// The option proto for the TfLiteTensorsToDetectionsCalculator.
+
+syntax = "proto2";
+
+package mediapipe;
+
+import "mediapipe/framework/calculator.proto";
+
+message TengineYolov5TensorsToDetectionsCalculatorOptions {
+  extend .mediapipe.CalculatorOptions {
+    optional TengineYolov5TensorsToDetectionsCalculatorOptions ext = 246514970;
+  }
+
+  // The number of output classes predicted by the detection model.
+  required int32 num_classes = 1;
+  // The number of output boxes predicted by the detection model.
+  required int32 num_boxes = 2;
+  // The number of output values per boxes predicted by the detection model. The
+  // values contain bounding boxes, keypoints, etc.
+  required int32 num_coords = 3;
+
+  // Parameters for decoding SSD detection model.
+  optional float x_scale = 4 [default = 0.0];
+  optional float y_scale = 5 [default = 0.0];
+  optional float w_scale = 6 [default = 0.0];
+  optional float h_scale = 7 [default = 0.0];
+
+  // Whether to reverse the order of predicted x, y from output.
+  // If false, the order is [y_center, x_center, h, w], if true the order is
+  // [x_center, y_center, w, h].
+  optional bool reverse_output_order = 8 [default = false];
+  // The ids of classes that should be ignored during decoding the score for
+  // each predicted box.
+  repeated int32 ignore_classes = 9;
+
+  optional bool sigmoid_score = 10 [default = false];
+  optional float score_clipping_thresh = 11;
+
+  // Whether the detection coordinates from the input tensors should be flipped
+  // vertically (along the y-direction). This is useful, for example, when the
+  // input tensors represent detections defined with a coordinate system where
+  // the origin is at the top-left corner, whereas the desired detection
+  // representation has a bottom-left origin (e.g., in OpenGL).
+  optional bool flip_vertically = 12 [default = false];
+
+  // Score threshold for perserving decoded detections.
+  required float min_score_thresh = 13;
+
+  required int32 img_width = 14;
+  required int32 img_height = 15;
+
+  required string data_type = 16;
+}
