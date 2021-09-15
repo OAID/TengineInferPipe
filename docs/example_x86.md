@@ -41,14 +41,14 @@
    1. retinanet
 
       ```
-      export LD_LIBRARY_PATH=../tengine/lib/$LD_LIBRARY_PATH
+      export LD_LIBRARY_PATH=../tengine/lib/:$LD_LIBRARY_PATH
       ./demo_run_detect_main ../object_detection_retina_x86.pbtxt input_frame output_detect ../test.mp4
       ```
    
    2. yolov5
    
       ```
-      export LD_LIBRARY_PATH=../tengine/lib/$LD_LIBRARY_PATH
+      export LD_LIBRARY_PATH=../tengine/lib/:$LD_LIBRARY_PATH
       ./demo_run_detect_main ../object_detection_yolov5_x86.pbtxt input_frame output_detect ../test.mp4
       ```
       
