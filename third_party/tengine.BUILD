@@ -13,7 +13,7 @@ cc_library(
         ],
     ),
     hdrs = glob([
-        "include/c_api.h",
+        "include/tengine/c_api.h",
     ]),
     includes = [
         "include/",
